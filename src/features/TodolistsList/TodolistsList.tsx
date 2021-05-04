@@ -1,5 +1,7 @@
 import React, {useCallback, useEffect} from 'react'
+import { Redirect } from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
+
 import {AppRootStateType} from '../../app/store'
 import {
     addTodolistTC,
@@ -10,12 +12,13 @@ import {
     removeTodolistTC,
     TodolistDomainType
 } from './todolists-reducer'
-import {addTaskTC, removeTaskTC, TasksStateType, updateTaskTC} from './tasks-reducer'
+import {TasksStateType} from './tasks-reducer'
 import {TaskStatuses} from '../../api/todolists-api'
-import {Grid, Paper} from '@material-ui/core'
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
 import {Todolist} from './Todolist/Todolist'
-import { Redirect } from 'react-router-dom'
+import { addTaskAA, removeTaskAA, updateTaskAA } from './tasks-sagas'
+
+import {Grid, Paper} from '@material-ui/core'
 
 type PropsType = {
     demo?: boolean
@@ -37,22 +40,22 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
-        const thunk = removeTaskTC(id, todolistId)
-        dispatch(thunk)
+        const action = removeTaskAA(id, todolistId)
+        dispatch(action)
     }, [])
 
     const addTask = useCallback(function (title: string, todolistId: string) {
-        const thunk = addTaskTC(title, todolistId)
-        dispatch(thunk)
+        const action = addTaskAA(title, todolistId)
+        dispatch(action)
     }, [])
 
     const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
-        const thunk = updateTaskTC(id, {status}, todolistId)
-        dispatch(thunk)
+        const action = updateTaskAA(id, {status}, todolistId)
+        dispatch(action)
     }, [])
 
     const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
-        const thunk = updateTaskTC(id, {title: newTitle}, todolistId)
+        const thunk = updateTaskAA(id, {title: newTitle}, todolistId)
         dispatch(thunk)
     }, [])
 
