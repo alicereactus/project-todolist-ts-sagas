@@ -1,8 +1,8 @@
 import React from 'react'
-import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid} from '@material-ui/core'
-import {useFormik} from 'formik'
-import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from '../../app/store'
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, TextField, Button, Grid } from '@material-ui/core'
+import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppRootStateType } from '../../app/store'
 import { Redirect } from 'react-router-dom'
 import { authLoginAA } from './auth-sagas'
 
@@ -47,7 +47,7 @@ export const Login = () => {
                     <FormLabel>
                         <p>
                             To log in get registered <a href={'https://social-network.samuraijs.com/'}
-                                                        target={'_blank'}>here</a>
+                                target={'_blank'}>here</a>
                         </p>
                         <p>
                             or use common test account credentials:
