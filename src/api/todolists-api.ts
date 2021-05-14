@@ -13,7 +13,7 @@ const instance = axios.create({
 
 // api
 export const todolistsAPI = {
-    getTodolists() {
+    getTodolists(): Promise<AxiosResponse<TodolistType[]>> {
         const promise = instance.get<TodolistType[]>('todo-lists');
         return promise;
     },
