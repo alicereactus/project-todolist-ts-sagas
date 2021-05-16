@@ -16,7 +16,7 @@ import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from './store'
 import {RequestStatusType} from './app-reducer'
-import {BrowserRouter, Redirect, Route} from 'react-router-dom'
+import {BrowserRouter, Route} from 'react-router-dom'
 import {Login} from '../features/Login/Login'
 import { initializeAppAA } from './app-sagas'
 import { authLogoutAA } from '../features/Login/auth-sagas'
@@ -63,9 +63,8 @@ function App({demo = false}: PropsType) {
                     {status === 'loading' && <LinearProgress/>}
                 </AppBar>
                 <Container fixed>
-                    <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
+                    <Route exact path={'/project-todolist-ts-sagas'} render={() => <TodolistsList demo={demo}/>}/>
                     <Route path={'/login'} render={() => <Login/>}/>
-                    <Route exact path={'*'} render={() => <Redirect to='/login'/>}/>
                 </Container>
             </div>
         </BrowserRouter>
