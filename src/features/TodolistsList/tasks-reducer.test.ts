@@ -1,5 +1,4 @@
-import {addTaskAC, removeTaskAC, setTasksAC, tasksReducer, updateTaskAC} from './tasks-reducer'
-import {TasksStateType} from '../trash/App'
+import {addTaskAC, removeTaskAC, setTasksAC, tasksReducer, TasksStateType, updateTaskAC} from './tasks-reducer'
 import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reducer'
 import {TaskPriorities, TaskStatuses} from '../../api/todolists-api'
 
@@ -32,7 +31,7 @@ test('correct task should be deleted from correct array', () => {
 
     expect(endState["todolistId1"].length).toBe(3);
     expect(endState["todolistId2"].length).toBe(2);
-    expect(endState["todolistId2"].every(t => t.id != "2")).toBeTruthy();
+    expect(endState["todolistId2"].every(t => t.id !== "2")).toBeTruthy();
 });
 test('correct task should be added to correct array', () => {
     //const action = addTaskAC("juce", "todolistId2");
@@ -86,7 +85,7 @@ test('new array should be added when new todolist is added', () => {
 
 
     const keys = Object.keys(endState);
-    const newKey = keys.find(k => k != "todolistId1" && k != "todolistId2");
+    const newKey = keys.find(k => k !== "todolistId1" && k !== "todolistId2");
     if (!newKey) {
         throw Error("new key should be added")
     }

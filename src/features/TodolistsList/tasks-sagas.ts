@@ -7,8 +7,8 @@ import { addTaskAC, removeTaskAC, setTasksAC, UpdateDomainTaskModelType, updateT
 
 export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasksAA>) {
     yield put(setAppStatusAC('loading'))
-    const response: AxiosResponse<GetTasksResponse> = yield call(todolistsAPI.getTasks, action.todolistId)
-    const tasks = response.data.items
+    const data: GetTasksResponse = yield call(todolistsAPI.getTasks, action.todolistId)
+    const tasks = data.items
     yield put(setTasksAC(tasks, action.todolistId))
     yield put(setAppStatusAC('succeeded'))
 }
