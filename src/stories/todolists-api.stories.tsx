@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
 import {todolistsAPI} from '../api/todolists-api'
 
 export default {
@@ -74,8 +73,8 @@ export const GetTasks = () => {
 
     const getTasks = () => {
         todolistsAPI.getTasks(todolistId)
-            .then((res) => {
-                setState(res.data)
+            .then((data) => {
+                setState(data)
             })
     }
 

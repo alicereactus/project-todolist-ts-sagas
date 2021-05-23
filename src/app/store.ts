@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
     auth: authReducer
 })
 
-const sagaMiddleware = createSagaMiddleware()
+export const sagaMiddleware = createSagaMiddleware()
 
 // непосредственно создаём store
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, sagaMiddleware));
