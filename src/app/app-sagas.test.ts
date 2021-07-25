@@ -5,7 +5,7 @@ import { initializeAppWorkerSaga } from './app-sagas';
 import { setIsLoggedInAC } from '../features/Login/auth-reducer';
 import { setAppInitializedAC } from './app-reducer';
 
-let meResponse: MeResponseType; 
+let meResponse: MeResponseType;
 
 beforeEach(() => {
     meResponse = {

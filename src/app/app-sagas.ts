@@ -6,12 +6,16 @@ import { setAppInitializedAC } from "./app-reducer";
 
 
 export function* initializeAppWorkerSaga() {
-    const data: MeResponseType = yield call(authAPI.me)
-    if (data.resultCode === 0) {
-        yield put(setIsLoggedInAC(true));
-    } else {
+    try {
+        const data: MeResponseType = yield call(authAPI.me)
+        if (data.resultCode === 0) {
+            yield put(setIsLoggedInAC(true));
+        } else {
+        }
     }
-    yield put(setAppInitializedAC(true));
+    finally {
+        yield put(setAppInitializedAC(true));
+    }
 }
 
 export const initializeAppAA = () => ({

@@ -1,28 +1,28 @@
-import React, {useCallback, useEffect} from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import {AppRootStateType} from '../../app/store'
+import { AppRootStateType } from '../../app/store'
 import {
     changeTodolistFilterAC,
     FilterValuesType,
     TodolistDomainType
 } from './todolists-reducer'
-import {TasksStateType} from './tasks-reducer'
-import {TaskStatuses} from '../../api/todolists-api'
-import {AddItemForm} from '../../components/AddItemForm/AddItemForm'
-import {Todolist} from './Todolist/Todolist'
+import { TasksStateType } from './tasks-reducer'
+import { TaskStatuses } from '../../api/todolists-api'
+import { AddItemForm } from '../../components/AddItemForm/AddItemForm'
+import { Todolist } from './Todolist/Todolist'
 import { addTaskAA, removeTaskAA, updateTaskAA } from './tasks-sagas'
 import { addTodolistAA, changeTodolistAA, fetchTodolistsAA, removeTodolistAA } from './todolists-sagas'
 
-import {Grid, Paper} from '@material-ui/core'
+import { Grid, Paper } from '@material-ui/core'
 
 
 type PropsType = {
     demo?: boolean
 }
 
-export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
+export const TodolistsList: React.FC<PropsType> = ({ demo = false }) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
@@ -47,12 +47,12 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [])
 
     const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
-        const action = updateTaskAA(id, {status}, todolistId)
+        const action = updateTaskAA(id, { status }, todolistId)
         dispatch(action)
     }, [])
 
     const changeTaskTitle = useCallback(function (id: string, newTitle: string, todolistId: string) {
-        const thunk = updateTaskAA(id, {title: newTitle}, todolistId)
+        const thunk = updateTaskAA(id, { title: newTitle }, todolistId)
         dispatch(thunk)
     }, [])
 
@@ -78,8 +78,8 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }
 
     return <>
-        <Grid container style={{padding: '20px'}}>
-            <AddItemForm addItem={addTodolist}/>
+        <Grid container style={{ padding: '20px' }}>
+            <AddItemForm addItem={addTodolist} />
         </Grid>
         <Grid container spacing={3}>
             {
@@ -87,7 +87,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                     let allTodolistTasks = tasks[tl.id]
 
                     return <Grid item key={tl.id}>
-                        <Paper style={{padding: '10px'}}>
+                        <Paper style={{ padding: '10px' }}>
                             <Todolist
                                 todolist={tl}
                                 tasks={allTodolistTasks}

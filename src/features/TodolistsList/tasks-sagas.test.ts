@@ -14,7 +14,6 @@ test('fetchTasksWorkerSaga success flow', () => {
     // gen.next() объект-инструкция, который говрит, что надо вызвать метод me например
     expect(gen.next().value).toEqual(put(setAppStatusAC('loading')))
     expect(gen.next().value).toEqual(call(todolistsAPI.getTasks, todolistId))
-
     const fakeApiResponse: GetTasksResponse = {
         error: "",
         totalCount: 10,
@@ -33,7 +32,8 @@ test('fetchTasksWorkerSaga success flow', () => {
             }
         ]
     }
-    
     expect(gen.next(fakeApiResponse).value).toEqual(put(setTasksAC(fakeApiResponse.items, todolistId)))
-    expect(gen.next().value).toEqual(put(setAppStatusAC('succeeded')))
+    let next = gen.next()
+    expect(next.value).toEqual(put(setAppStatusAC('succeeded')))
+    // expect(next.done).toBeFalsy()
 })

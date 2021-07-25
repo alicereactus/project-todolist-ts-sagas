@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, { useCallback, useEffect } from 'react'
 import './App.css'
 import {
     AppBar,
@@ -10,14 +10,14 @@ import {
     Toolbar,
     Typography
 } from '@material-ui/core'
-import {Menu} from '@material-ui/icons'
-import {TodolistsList} from '../features/TodolistsList/TodolistsList'
-import {ErrorSnackbar} from '../components/ErrorSnackbar/ErrorSnackbar'
-import {useDispatch, useSelector} from 'react-redux'
-import {AppRootStateType} from './store'
-import {RequestStatusType} from './app-reducer'
-import {BrowserRouter, Route} from 'react-router-dom'
-import {Login} from '../features/Login/Login'
+import { Menu } from '@material-ui/icons'
+import { TodolistsList } from '../features/TodolistsList/TodolistsList'
+import { ErrorSnackbar } from '../components/ErrorSnackbar/ErrorSnackbar'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppRootStateType } from './store'
+import { RequestStatusType } from './app-reducer'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { Login } from '../features/Login/Login'
 import { initializeAppAA } from './app-sagas'
 import { authLogoutAA } from '../features/Login/auth-sagas'
 
@@ -25,46 +25,47 @@ type PropsType = {
     demo?: boolean
 }
 
-function App({demo = false}: PropsType) {
+function App({ demo = false }: PropsType) {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const isInitialized = useSelector<AppRootStateType, boolean>((state) => state.app.isInitialized)
     const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(initializeAppAA())
-    }, [])
 
     const logoutHandler = useCallback(() => {
         dispatch(authLogoutAA())
     }, [])
 
+    useEffect(() => {
+        dispatch(initializeAppAA())
+    }, [])
+
+
     if (!isInitialized) {
         return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress/>
+            style={{ position: 'fixed', top: '30%', textAlign: 'center', width: '100%' }}>
+            <CircularProgress />
         </div>
     }
 
     return (
         <BrowserRouter basename={"project-todolist-ts-sagas"}>
             <div className="App">
-                <ErrorSnackbar/>
+                <ErrorSnackbar />
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="menu">
-                            <Menu/>
+                            <Menu />
                         </IconButton>
                         <Typography variant="h6">
                             News
                         </Typography>
                         {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
                     </Toolbar>
-                    {status === 'loading' && <LinearProgress/>}
+                    {status === 'loading' && <LinearProgress />}
                 </AppBar>
                 <Container fixed>
-                    <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
-                    <Route path={'/login'} render={() => <Login/>}/>
+                    <Route exact path={'/'} render={() => <TodolistsList demo={demo} />} />
+                    <Route path={'/login'} render={() => <Login />} />
                 </Container>
             </div>
         </BrowserRouter>

@@ -31,7 +31,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 sagaMiddleware.run(rootWatcher)
 function* rootWatcher() {
     yield all([
-        appWatcherSaga(), 
+        appWatcherSaga(),
         authWatcherSaga(),
         tasksWatcherSaga(),
         todolistsWatcherSaga()

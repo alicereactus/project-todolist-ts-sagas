@@ -13,7 +13,7 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
         case 'APP/SET-IS-INITIALIED':
             return { ...state, isInitialized: action.value }
         default:
-            return { ...state }
+            return state
     }
 }
 
