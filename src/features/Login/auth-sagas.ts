@@ -13,11 +13,10 @@ export function* loginWorkerSaga(action: ReturnType<typeof authLoginAA>) {
             yield put(setIsLoggedInAC(true))
             yield put(setAppStatusAC('succeeded'))
         } else {
-            yield handleServerAppErrorSaga(response.data)
-            yield put(setAppStatusAC('failed'))
+            yield* handleServerAppErrorSaga(response.data)
         }
     } catch (error) {
-        yield handleServerNetworkErrorSaga(error);
+        yield* handleServerNetworkErrorSaga(error);
     }
 }
 
@@ -34,10 +33,10 @@ export function* logoutWorkerSaga() {
             yield put(setIsLoggedInAC(false))
             yield put(setAppStatusAC('succeeded'))
         } else {
-            yield handleServerAppErrorSaga(response.data)
+            yield* handleServerAppErrorSaga(response.data)
         }
     } catch (error) {
-        yield handleServerNetworkErrorSaga(error);
+        yield* handleServerNetworkErrorSaga(error);
     }
 }
 

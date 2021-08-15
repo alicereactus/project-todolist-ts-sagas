@@ -17,7 +17,7 @@ export function* fetchTasksWorkerSaga(action: ReturnType<typeof fetchTasksAA>) {
 export const fetchTasksAA = (todolistId: string) => ({
     type: "TASKS/FETCH-TASKS",
     todolistId
-})
+} as const)
 
 export function* removeTaskWorkerSaga(action: ReturnType<typeof removeTaskAA>) {
     const response: AxiosResponse<ResponseType> = yield call(todolistsAPI.deleteTask, action.todolistId, action.taskId)
@@ -39,10 +39,10 @@ export function* addTaskWorkerSaga(action: ReturnType<typeof addTaskAA>) {
             yield put(addTaskAC(task))
             yield put(setAppStatusAC('succeeded'))
         } else {
-            yield handleServerAppErrorSaga(response.data)
+            yield* handleServerAppErrorSaga(response.data)
         }
     } catch (error) {
-        yield handleServerNetworkErrorSaga(error);
+        yield* handleServerNetworkErrorSaga(error);
     }
 }
 
@@ -51,7 +51,7 @@ export const addTaskAA = (title: string, todolistId: string) => ({
     type: "TASKS/ADD-TASK",
     title,
     todolistId,
-})
+} as const)
 
 export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskAA>) {
     const state: AppRootStateType = yield select()
@@ -78,10 +78,10 @@ export function* updateTaskWorkerSaga(action: ReturnType<typeof updateTaskAA>) {
             yield put(updateTaskAC(action.taskId, action.domainModel, action.todolistId))
         }
         else {
-            yield handleServerAppErrorSaga(response.data)
+            yield* handleServerAppErrorSaga(response.data)
         }
     } catch (error) {
-        yield handleServerNetworkErrorSaga(error);
+        yield* handleServerNetworkErrorSaga(error);
     }
 }
 

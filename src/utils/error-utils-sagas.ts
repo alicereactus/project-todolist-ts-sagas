@@ -8,10 +8,10 @@ export function* handleServerAppErrorSaga<D>(data: ResponseType<D>) {
     } else {
         yield put(setAppErrorAC('Some error occurred'))
     }
-    return put(setAppStatusAC('failed'))
+    yield put(setAppStatusAC('failed'))
 }
 
 export function* handleServerNetworkErrorSaga(error: { message: string }) {
     yield put(setAppErrorAC(error.message ? error.message : 'Some error occurred'))
-    return put(setAppStatusAC('failed'))
+    yield put(setAppStatusAC('failed'))
 }

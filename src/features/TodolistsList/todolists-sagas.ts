@@ -14,7 +14,7 @@ export function* fetchTodolistsWorkerSaga() {
         yield put(setTodolistsAC(todolists))
         yield put(setAppStatusAC('succeeded'))
     } catch (error) {
-        yield handleServerNetworkErrorSaga(error);
+        yield* handleServerNetworkErrorSaga(error);
     }
 }
 
@@ -43,7 +43,7 @@ export function* addTodolistWorkerSaga(action: ReturnType<typeof addTodolistAA>)
     const response: AxiosResponse<ResponseType<{ item: TodolistType }>> = yield call(todolistsAPI.createTodolist, action.title)
     const todolist = response.data.data.item
     yield put(addTodolistAC(todolist))
-    return put(setAppStatusAC('succeeded'))
+    yield put(setAppStatusAC('succeeded'))
 }
 
 export const addTodolistAA = (title: string) => ({
